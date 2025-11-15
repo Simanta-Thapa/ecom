@@ -34,11 +34,11 @@ class ShopState{
 }){
     return ShopState(
       isLoading: isLoading ?? this.isLoading,
-      isAdding: isAdding ?? this.isAdded,
+      isAdding: isAdding ?? this.isAdding,
       isAdded:  isAdded ?? this.isAdded,
       isFail: isFail ?? this.isFail,
       products: products ?? this.products,
-      image: image ?? this.image,
+      image: image ?? "",
       errorMsg: errorMsg ?? this.errorMsg,
     );
   }
