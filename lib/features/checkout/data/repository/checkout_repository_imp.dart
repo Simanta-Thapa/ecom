@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/cart/domain/entities/cart.dart';
 import 'package:ecommerce/features/checkout/domain/entities/address_entity.dart';
 import 'package:ecommerce/features/checkout/domain/entities/checkout_cart_entity.dart';
 import 'package:ecommerce/features/checkout/domain/entities/checkout_entity.dart';
@@ -53,9 +54,8 @@ class CheckoutRepositoryImpl implements CheckoutRepository{
   }
 
   @override
-  Future<void> createCheckout(String userId, List<CheckoutCartItem> selectedItems) {
-    // TODO: implement createCheckout
-    throw UnimplementedError();
+  Future<void> createCheckout(String userId, List<CartEntity> selectedItems) async {
+     await remoteDataSource.createCheckout(selectedItems: selectedItems, uid:userId);
   }
   
 }

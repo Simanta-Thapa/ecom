@@ -47,22 +47,19 @@ class ProductCard extends StatelessWidget {
       onTap:(){
         context.push('/details/${product.id}');
       },
-      child: Container(
-        decoration:BoxDecoration(
-          color: Colors.red
-        ),
-        padding: const EdgeInsets.all(10),
-        width: 225,
-        height:height,
-        child: Column(
-          children: [
-            Expanded(child: _buildImageSection(context, uid)),
-            const SizedBox(height: 15),
-
-
-
-            _buildDetailsSection(context,uid!,product),
-          ],
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Expanded(child: _buildImageSection(context, uid)),
+              const SizedBox(height: 15),
+          
+          
+          
+              _buildDetailsSection(context,uid!,product),
+            ],
+          ),
         ),
       ),
     );

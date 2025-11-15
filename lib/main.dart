@@ -10,6 +10,7 @@ import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
 import 'package:ecommerce/features/auth/bloc/auth_state.dart';
 
 import 'package:ecommerce/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:ecommerce/features/checkout/presentation/bloc/checkout_bloc.dart';
 import 'package:ecommerce/features/details/bloc/detail_bloc.dart';
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_event.dart';
@@ -45,6 +46,7 @@ void main() async {
   final cartBloc = di.sl<CartBloc>();
   final shopBloc = di.sl<ShopBloc>();
   final detailBloc = di.sl<DetailBloc>();
+  final checkoutBloc = di.sl<CheckoutBloc>();
 
 
 
@@ -57,6 +59,7 @@ void main() async {
       profileBloc: profileBloc,
       cartBloc: cartBloc,
       detailBloc:detailBloc,
+      checkoutBloc:checkoutBloc,
 
     ),
   );
@@ -70,6 +73,7 @@ class MyApp extends StatelessWidget {
   final CartBloc cartBloc;
   final ShopBloc shopBloc;
   final DetailBloc detailBloc;
+  final CheckoutBloc checkoutBloc;
 
 
   const MyApp({
@@ -81,6 +85,7 @@ class MyApp extends StatelessWidget {
 
     required this.favoriteBloc,
     required this.shopBloc,
+    required this.checkoutBloc,
 
   });
 
@@ -100,7 +105,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<CartBloc>.value(value: cartBloc),
         BlocProvider<ShopBloc>.value(value:shopBloc),
         BlocProvider<DetailBloc>.value(value:detailBloc),
-
+        BlocProvider<CheckoutBloc>.value(value:checkoutBloc),
         // Shared Bloc created here
 
       ],

@@ -8,12 +8,14 @@ class ProfileState extends Equatable {
   final bool isLoading;
   final String? errorMessage;
   final ProfileTab selectedTab;
+  final String image;
 
   const ProfileState({
     this.profile,
     this.isLoading = false,
     this.errorMessage,
     this.selectedTab = ProfileTab.favorite,
+    this.image = '',
   });
 
   ProfileState copyWith({
@@ -21,12 +23,14 @@ class ProfileState extends Equatable {
     bool? isLoading,
     String? errorMessage,
     ProfileTab? selectedTab,
+    String? image,
   }) {
     return ProfileState(
       profile: profile ?? this.profile,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
       selectedTab: selectedTab ?? this.selectedTab,
+      image: image ?? this.image
     );
   }
 

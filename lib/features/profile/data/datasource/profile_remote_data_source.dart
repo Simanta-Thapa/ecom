@@ -3,6 +3,7 @@ import 'package:ecommerce/features/profile/data/model/profile_model.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<ProfileModel> fetchUserProfile(String uid);
+  Future<void> updateProfile({required String uid,required String name,required String image});
 }
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
@@ -24,6 +25,22 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       }
     } catch (e) {
       throw Exception("Failed to fetch user profile: ${e.toString()}");
+    }
+  }
+
+  @override
+  Future<void> updateProfile({required String uid,required String name, required String image}) async  {
+    try{
+      final docRef = firestore.collection("Users").doc(uid);
+      await docRef.update(
+        {
+          'name':name,
+          'image':image,
+        }
+      );
+    }catch(e)
+    {
+      throw Exception("Failed to update profile:${e.toString()}");
     }
   }
 }

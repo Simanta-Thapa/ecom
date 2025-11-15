@@ -1,6 +1,6 @@
 import 'package:ecommerce/core/const/const.dart';
 import 'package:ecommerce/core/widgets/custom_button.dart';
-import 'package:ecommerce/core/widgets/custom_nav_bar.dart';
+
 import 'package:ecommerce/core/widgets/custom_text_form_field.dart';
 import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
 import 'package:ecommerce/features/auth/bloc/auth_event.dart';

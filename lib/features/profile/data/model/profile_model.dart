@@ -13,7 +13,7 @@ class ProfileModel extends Profile with EquatableMixin {
   // From JSON
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
-      id: json['id'] ?? '',
+      id: json['uid'] ?? '',
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       profilePic: json['profilePic'],

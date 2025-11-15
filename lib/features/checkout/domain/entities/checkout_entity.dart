@@ -1,10 +1,13 @@
-import '../../../cart/presentation/widget/cart_item.dart';
+
+
+import 'package:ecommerce/features/cart/domain/entities/cart.dart';
+
 import 'address_entity.dart';
-import 'checkout_cart_entity.dart';
+
 import 'delivery_option_entity.dart';
 
 class Checkout {
-  final List<CheckoutCartItem> items;
+  final List<CartEntity> items;
   final Address address;
   final DeliveryOption deliveryOption;
 

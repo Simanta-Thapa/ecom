@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/cart/domain/entities/cart.dart';
 import 'package:ecommerce/features/checkout/domain/entities/address_entity.dart';
 import 'package:ecommerce/features/checkout/domain/entities/checkout_cart_entity.dart';
 import 'package:ecommerce/features/checkout/domain/entities/delivery_option_entity.dart';
@@ -12,7 +13,7 @@ class CheckoutState extends Equatable {
   final Address? selectedAddress;
   final List<DeliveryOption> deliveryOptions;
   final DeliveryOption? selectedDelivery;
-  final List<CheckoutCartItem> items;
+  final List<CartEntity> items;
   final double total;
 
   final String? error;
@@ -43,7 +44,7 @@ class CheckoutState extends Equatable {
     Address? selectedAddress,
     List<DeliveryOption>? deliveryOptions,
     DeliveryOption? selectedDelivery,
-     List<CheckoutCartItem>? items,
+     List<CartEntity>? items,
     double? total,
 
     String? error,

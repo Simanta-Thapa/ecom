@@ -1,19 +1,16 @@
 import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
+import 'package:ecommerce/features/auth/bloc/auth_event.dart';
 import 'package:ecommerce/features/auth/bloc/auth_state.dart';
 
 import 'package:ecommerce/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:ecommerce/features/profile/presentation/bloc/profile_event.dart';
-import 'package:ecommerce/features/profile/presentation/widget/profile_choice_chip.dart';
 
 import 'package:ecommerce/features/profile/presentation/widget/profile_header.dart';
-import 'package:ecommerce/features/profile/presentation/widget/profile_list_view.dart';
+
+import 'package:ecommerce/features/profile/presentation/widget/profile_menu_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../domain/entities/profile_tab.dart';
-import '../bloc/profile_state.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -22,7 +19,8 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with TickerProviderStateMixin {
   late final PageController _pageController;
 
   @override
@@ -45,6 +43,20 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final menuItems = [
+      {"icon": Icons.person_2, "title": "Update Profile", 'onTap': () {}},
+
+      {"icon": Icons.payment, "title": "Payment", 'onTap': () {}},
+
+      {"icon": Icons.person_2, "title": "Address", 'onTap': () {}},
+
+      {"icon": Icons.check_outlined, "title": "Resume Checkout", 'onTap': () {}},
+    ];
+    final screenHeight = MediaQuery.of(context).size.height; // get double
+    final topHeight = screenHeight * (1 / 7);
+    final bottomHeight = screenHeight * (6 / 7);
+
+    final headerTop = topHeight + bottomHeight * -0.2;
 
     const Color primaryDark = Color(0xFF141F32);
     const Color secondaryDark = Color(0xFF1F2A40);
@@ -52,73 +64,41 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
         if (authState is! AuthAuthenticated) {
-          return const Center(child: Text("Please log in to view your profile."));
+          return const Center(
+            child: Text("Please log in to view your profile."),
+          );
         }
 
-        // 🚨 FIX 1: Wrap the entire layout in a Container
-        // to ensure the background is the secondaryDark color,
-        // thus covering the parent Scaffold's white background.
-        return Container(
-          color: primaryDark,
-          child: SafeArea(
-            // 🚨 FIX 2: Ensure the top padding is still applied
-            // to push content below the Status Bar, but only if needed.
-            // Since you're using a full-screen layout, let's use the Stack
-            // for the color and rely on the parent Scaffold for SafeArea.
-            // However, since this is a tab view, we only exclude the bottom
-            // (for the BottomNavBar) if the parent Scaffold doesn't handle it.
-            child: Stack(
-                children:[
-                  // The main content column
-                  Column(
-                      children:[
-                        // This is the top 140px section. It should now be visible
-                        // because the container beneath the stack has secondaryDark color.
-                        const SizedBox(
-                            height: 140,
-                            child: ColoredBox(color: primaryDark)
-                        ),
+        return Stack(
+          children: [
+            Column(
+              children: [
+                Expanded(flex: 1, child: Container(color: primaryDark)),
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 250),
+                    color: secondaryDark,
+                    child: Column(
+                      children: [
+                        Expanded(child: ProfileMenuList(menuItems: menuItems)),
 
-                        // 🚨 FIX 3: Use Expanded here so the Container takes the rest of the vertical space.
-                        Expanded(
-                          child: Container(
-                            // Top padding needed to push content below the overlapping ProfileHeader
-                            padding: const EdgeInsets.only(
-                                top: 150
-                            ),
-                            // This color is now redundant but kept for clarity
-                            decoration: const BoxDecoration(
-                                color: secondaryDark
-                            ),
-                            child: Column(
-                              children: const [
-                                ListTile(
-                                  leading: Icon(Icons.settings, color: Colors.white), // Added color for visibility
-                                  title: Text("Settings", style: TextStyle(color: Colors.white)), // Added color for visibility
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ]
+                      ],
+                    ),
                   ),
-
-
-                  // Profile Header overlay
-                  Positioned(
-                      top: 80,
-                      left: 0, // Added to ensure horizontal centering
-                      right: 0, // Added to ensure horizontal centering
-                      child: ProfileHeader()
-                  ),
-                ]
+                ),
+              ],
             ),
-          ),
+
+            Positioned(
+              top: topHeight,
+              left: 0,
+              right: 0,
+              child: ProfileHeader(),
+            ),
+          ],
         );
       },
     );
   }
-
 }
-
-

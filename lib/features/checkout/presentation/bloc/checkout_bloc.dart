@@ -1,14 +1,18 @@
 import 'package:ecommerce/features/checkout/domain/usecases/get_user_addresses_use_case.dart';
+import 'package:ecommerce/features/checkout/domain/usecases/start_checkout_use_case.dart';
 import 'package:ecommerce/features/checkout/presentation/bloc/checkout_event.dart';
 import 'package:ecommerce/features/checkout/presentation/bloc/checkout_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutBloc extends Bloc<CheckoutEvent,CheckoutState>{
   final GetUserAddressesUserCase getUserAddressesUserCase;
+  final StartCheckoutUseCase startCheckoutUseCase;
   CheckoutBloc({
     required this.getUserAddressesUserCase,
+    required this.startCheckoutUseCase,
 }) : super(CheckoutState()){
     on<LoadCheckoutData>(_onLoadCheckoutData);
+    on<StartCheckout>(_onStartCheckout);
   }
 
 
@@ -24,5 +28,15 @@ class CheckoutBloc extends Bloc<CheckoutEvent,CheckoutState>{
       ));
     }
   }
+
+  Future<void> _onStartCheckout(StartCheckout event,Emitter<CheckoutState> emit) async{
+    try{
+      await startCheckoutUseCase.call(userId: event.userUid, selectedItems: event.selectedItems);
+    }catch(e){
+      emit(state.copyWith(error: e.toString()));
+    }
+
+  }
+
 
 }

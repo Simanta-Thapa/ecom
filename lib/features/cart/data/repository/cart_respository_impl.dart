@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/failure.dart';
 import 'package:ecommerce/features/cart/data/datasource/cart_remote_datasource.dart';
@@ -32,6 +34,7 @@ class CartRepositoryImpl implements CartRepository {
     return _helperCartImpl(() async {
       final models = await cartRemoteDataSource.getCartItems(userUid);
       final entities = models.map((e) => e.toEntity()).toList();
+      log("Entities in list in cart respoisotyr_impl ${entities.length}");
       return entities;
     });
   }

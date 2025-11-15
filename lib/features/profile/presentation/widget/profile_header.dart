@@ -22,45 +22,38 @@ class ProfileHeader extends StatelessWidget {
           errorMessage: state.errorMessage,
         );
       },
-      builder:(context,data){
-        if(data.isLoading){
+      builder: (context, data) {
+        if (data.isLoading) {
           return const Padding(
             padding: EdgeInsets.all(20),
             child: Center(child: CircularProgressIndicator()),
           );
-
-
-
         }
 
-        if(data.errorMessage != null){
+        if (data.errorMessage != null) {
           return Padding(
             padding: const EdgeInsets.all(20),
-            child: Text('Error: ${data.errorMessage}',
-                style: TextStyle(color: Colors.red)),
+            child: Text(
+              'Error: ${data.errorMessage}',
+              style: TextStyle(color: Colors.red),
+            ),
           );
-
-
-
         }
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: avatarRadius,
-              child: Icon(Icons.person),
+            CircleAvatar(radius: avatarRadius, child: Icon(Icons.person)),
+
+            Text(
+              data.name,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-
-
-
-
-                Text(data.name),
-                Text(data.email)
-
-
-
-
+            Text(data.email, style: TextStyle(color: Colors.white)),
           ],
         );
       },

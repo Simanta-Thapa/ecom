@@ -1,5 +1,5 @@
 import 'package:ecommerce/features/cart/data/models/cart_model.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart.dart';
+
 
 abstract class CartRemoteDatasource {
  Future<List<CartModel>> getCartItems(String uid);

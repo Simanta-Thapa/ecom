@@ -16,6 +16,20 @@ class Profile extends Equatable {
     this.profilePic,
   });
 
+
+  Profile copyWith({
+    String? name,
+    String? profilePic,
+    String? uid,
+    String? email,
+  }) {
+    return Profile(
+      name: name ?? this.name,
+      profilePic: profilePic ?? this.profilePic,
+      uid:uid ?? this.uid,
+      email:email ?? this.email,
+    );
+  }
   /// Equatable props for value comparison
   @override
   List<Object?> get props => [uid, name, profilePic];

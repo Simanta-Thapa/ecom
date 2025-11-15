@@ -32,6 +32,13 @@ import 'package:ecommerce/features/cart/domain/usecases/get_cart_items_use_case.
 import 'package:ecommerce/features/cart/domain/usecases/remove_cart_item_use_case.dart';
 import 'package:ecommerce/features/cart/domain/usecases/update_cart_item_qty_use_case.dart';
 import 'package:ecommerce/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:ecommerce/features/checkout/data/datasource/checkout_remote_data_source.dart';
+import 'package:ecommerce/features/checkout/data/datasource/checkout_remote_data_source_impl.dart';
+import 'package:ecommerce/features/checkout/data/repository/checkout_repository_imp.dart';
+import 'package:ecommerce/features/checkout/domain/respositories/checkout_repository.dart';
+import 'package:ecommerce/features/checkout/domain/usecases/get_user_addresses_use_case.dart';
+import 'package:ecommerce/features/checkout/domain/usecases/start_checkout_use_case.dart';
+import 'package:ecommerce/features/checkout/presentation/bloc/checkout_bloc.dart';
 import 'package:ecommerce/features/details/bloc/detail_bloc.dart';
 import 'package:ecommerce/features/details/data/datasource/detail_remote_data_source_impl.dart';
 import 'package:ecommerce/features/details/data/datasource/details_remote_data_source.dart';
@@ -45,10 +52,12 @@ import 'package:ecommerce/features/favorite/domain/respositories/feature_reposit
 import 'package:ecommerce/features/favorite/domain/usecases/fetch_user_favorite_list.dart';
 import 'package:ecommerce/features/favorite/domain/usecases/toggle_user_favorite.dart';
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_bloc.dart';
+import 'package:ecommerce/features/profile/data/datasource/profile_local_data_source.dart';
 import 'package:ecommerce/features/profile/data/datasource/profile_remote_data_source.dart';
 import 'package:ecommerce/features/profile/data/respository/profile_respository_impl.dart';
 import 'package:ecommerce/features/profile/domain/respositories/profile_respositories.dart';
 import 'package:ecommerce/features/profile/domain/usecases/fetch_user_profile.dart';
+import 'package:ecommerce/features/profile/domain/usecases/profile_select_image_use_case.dart';
 import 'package:ecommerce/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -67,11 +76,13 @@ Future<void> init() async {
 
   /// Data layer  and respository layer
 
+  sl.registerLazySingleton<ProfileLocalDataSource>(()=>ProfileLocalDataSourceImpl());
+
   sl.registerLazySingleton<ProfileRemoteDataSource>(
     () => ProfileRemoteDataSourceImpl(firestore: sl()),
   );
   sl.registerLazySingleton<ProfileRepository>(
-    () => ProfileRespositoryImpl(profileRemoteDataSource: sl()),
+    () => ProfileRespositoryImpl(profileRemoteDataSource: sl(), profileLocalDataSource: sl()),
   );
 
   sl.registerLazySingleton<CartRemoteDatasource>(
@@ -80,6 +91,9 @@ Future<void> init() async {
 
 
   sl.registerLazySingleton<DetailRemoteDataSource>(()=>DetailRemoteDataSourceImpl(sl()));
+
+
+  sl.registerLazySingleton<CheckoutRemoteDataSource>(()=>CheckoutRemoteDataSourceImpl(sl()));
 
   /// favorite
 
@@ -115,9 +129,15 @@ Future<void> init() async {
 
   sl.registerLazySingleton<DetailRepository>(()=>DetailRepositoryImpl(sl()));
 
+  sl.registerLazySingleton<CheckoutRepository>(()=>CheckoutRepositoryImpl(sl()));
+
   // Domain layer and usecase
 
+
+   // Profile
+
   sl.registerLazySingleton(() => FetchUserProfile(repository: sl()));
+  sl.registerLazySingleton(()=>ProfileSelectImageUseCase(sl()));
 
   /// favorite
   sl.registerLazySingleton(
@@ -151,11 +171,15 @@ Future<void> init() async {
 
   sl.registerLazySingleton(()=>GetProductDetailsUseCase(sl()));
 
-  // presentation layer
+
+
+
+  sl.registerLazySingleton(()=>GetUserAddressesUserCase(sl()));
+  sl.registerLazySingleton(()=>StartCheckoutUseCase(checkoutRepository: sl()));
 
   /// bloc
 
-  sl.registerFactory(() => ProfileBloc(fetchUserProfileUseCase: sl()));
+  sl.registerFactory(() => ProfileBloc(fetchUserProfileUseCase: sl(), profileSelectImageUseCase: sl(),));
 
   sl.registerFactory(
     () => FavoriteBloc(fetchUserFavoriteList: sl(), toggleUserFavorite: sl()),
@@ -191,4 +215,6 @@ Future<void> init() async {
 
 
   sl.registerFactory(()=>DetailBloc(getProductDetailsUseCase: sl()));
+
+  sl.registerFactory(()=>CheckoutBloc(getUserAddressesUserCase:sl(), startCheckoutUseCase:sl(),));
 }

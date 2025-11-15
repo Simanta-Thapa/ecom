@@ -9,6 +9,7 @@ import 'package:ecommerce/features/profile/presentation/pages/profile_screen.dar
 import 'package:flutter/material.dart';
 
 
+import '../../features/Store/presentation/pages/store_screen.dart';
 import '../model/bottom_nav_barItem.dart';
 
 class CustomNavBar extends StatefulWidget {
@@ -30,6 +31,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   BottomNavBarItem(icon: Icons.home, label:"home_screen", screen:HomeScreen()),
    BottomNavBarItem(icon:Icons.add,label:"Add",screen: AddProductScreen()),
+    BottomNavBarItem(icon:Icons.store,label:"Store",screen:StoreScreen()),
 
 
     BottomNavBarItem(

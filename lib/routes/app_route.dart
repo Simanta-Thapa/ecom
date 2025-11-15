@@ -1,5 +1,6 @@
 import 'package:ecommerce/features/cart/cart_route.dart';
 import 'package:ecommerce/features/details/details_route.dart';
+import 'package:ecommerce/features/profile/update_profile_route.dart';
 import 'package:ecommerce/routes/setting_route.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,6 +8,7 @@ import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
 import 'package:ecommerce/features/auth/bloc/auth_state.dart';
 import '../features/auth/presentation/auth_bloc_notifier.dart';
 import '../features/auth/presentation/screens/splash.dart';
+import '../features/checkout/checkout_detail_screen_route.dart';
 import 'auth_routes.dart';
 import 'custom_nav_bar_route.dart';
 
@@ -49,7 +51,9 @@ class AppRouter {
       ...customNavBarRoute,  // home, cart, profile, favorite
       ...settingRoute,     // settings
       ...cartRoute,
+      ...checkoutDetailScreen,
       ...detailRoute,
+      ...updateProfileRoute,
       GoRoute(
         path: '/',
         builder: (context, state) => SplashScreen(), // Splash screen

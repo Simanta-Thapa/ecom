@@ -4,8 +4,7 @@ import 'package:ecommerce/features/auth/domain/usecase/login_use_case.dart';
 import 'package:ecommerce/features/auth/domain/usecase/logout_use_case.dart';
 import 'package:ecommerce/features/auth/domain/usecase/register_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ecommerce/features/auth/domain/entites/user.dart';
-import 'package:ecommerce/features/auth/domain/repository/auth_repo.dart';
+
 import 'auth_event.dart';
 import 'auth_state.dart';
 

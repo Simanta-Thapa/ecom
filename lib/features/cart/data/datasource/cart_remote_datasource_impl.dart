@@ -1,9 +1,13 @@
+
+
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/core/error/Exception.dart';
 import 'package:ecommerce/core/error/failure.dart';
 import 'package:ecommerce/features/cart/data/datasource/cart_remote_datasource.dart';
 import 'package:ecommerce/features/cart/data/models/cart_model.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart.dart';
+
 
 class CartRemoteDatasourceImpl implements CartRemoteDatasource {
   final FirebaseFirestore _firestore;
@@ -28,12 +32,14 @@ class CartRemoteDatasourceImpl implements CartRemoteDatasource {
 
   @override
   Future<List<CartModel>> getCartItems(String uid) async {
+
     try {
       final snapshot = await _firestore
           .collection("Users")
           .doc(uid)
           .collection("Cart")
           .get();
+      log("cart remote datasource ${snapshot.docs.length}");
       return snapshot.docs
           .map((doc) => CartModel.fromJson(doc.data()))
           .toList();
@@ -90,6 +96,7 @@ class CartRemoteDatasourceImpl implements CartRemoteDatasource {
 
   @override
   Future<void> updateItemQty({required String userUid, required cartItemId, required int qty,}) async {
+
     await _executeOperation(() async{
       final docRef = _firestore.collection("Users").doc(userUid).collection("Cart").doc(cartItemId);
       await docRef.update({

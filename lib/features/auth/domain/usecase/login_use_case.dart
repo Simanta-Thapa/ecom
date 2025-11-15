@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/failure.dart';
-import 'package:ecommerce/features/auth/bloc/auth_event.dart';
+
 import 'package:ecommerce/features/auth/domain/entites/user.dart';
 
 import '../repository/auth_repo.dart';

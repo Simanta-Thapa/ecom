@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/features/cart/domain/entities/cart.dart';
 import 'package:ecommerce/features/checkout/data/model/checkout_address_model.dart';
 
 import 'package:ecommerce/features/checkout/data/model/checkout_delivery_option_model.dart';
@@ -35,6 +36,24 @@ class CheckoutRemoteDataSourceImpl implements CheckoutRemoteDataSource{
   Future<void> submitCheckout({required CheckoutModel checkout, required String uid})async  {
     await firestore.collection("Users").doc(uid).collection("Orders").add(checkout.toMap());
 
+  }
+
+  @override
+  Future<void> createCheckout({required List<CartEntity> selectedItems, required String uid}) async {
+    final docRef =  firestore.collection("Users").doc(uid).collection("Checkout");
+    
+    final itemsList = selectedItems.map((cart)=>{
+      'id':cart.id,
+      'name':cart.name,
+      'price':cart.price,
+      'image':cart.image
+    });
+    
+    await docRef.add({
+      'id':docRef,
+      "items": itemsList,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 
 

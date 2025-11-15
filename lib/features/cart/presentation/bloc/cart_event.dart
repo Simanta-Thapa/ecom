@@ -56,3 +56,25 @@ class ChangeQty extends CartEvent{
   List<Object?> get props => [uid,cartId,value];
 
 }
+
+
+class RemoveCartItem extends CartEvent{
+  final String uid;
+  final String cartId;
+
+  const RemoveCartItem({required this.uid,required this.cartId});
+
+
+}
+
+
+class ToggleSelectedItems extends CartEvent{
+  final String cartId;
+
+  const ToggleSelectedItems(this.cartId);
+
+
+  @override
+  List<Object?> get props => [cartId];
+
+}

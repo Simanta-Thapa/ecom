@@ -1,6 +1,8 @@
 
 
 
+import 'package:ecommerce/features/cart/data/models/cart_model.dart';
+
 import '../../domain/entities/checkout_entity.dart';
 import 'checkout_address_model.dart';
 import 'checkout_cart_model.dart';
@@ -17,7 +19,7 @@ class CheckoutModel extends Checkout {
 
   factory CheckoutModel.fromMap(Map<String, dynamic> map) => CheckoutModel(
     items: (map['items'] as List)
-        .map((e) => CartItemModel.fromMap(e))
+        .map((e) => CartModel.fromJson(e))
         .toList(),
     address: AddressModel.fromMap(map['address']),
     deliveryOption: DeliveryOptionModel.fromMap(map['delivery']),
