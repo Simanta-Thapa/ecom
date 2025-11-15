@@ -1,4 +1,4 @@
-// Base class
+
 import 'package:ecommerce/features/auth/domain/entites/user.dart';
 import 'package:equatable/equatable.dart';
 
@@ -24,10 +24,10 @@ final class AuthAuthenticated extends AuthState {
 
 }
 
-// When user is not logged in
+
 final class AuthUnauthenticated extends AuthState {}
 
-// When something went wrong
+
 class AuthFailure extends AuthState {
   final String message;
 

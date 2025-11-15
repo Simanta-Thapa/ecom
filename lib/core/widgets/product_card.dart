@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:ecommerce/core/widgets/favorite.dart';
 import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
 import 'package:ecommerce/features/auth/bloc/auth_state.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart.dart';
-import 'package:ecommerce/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:ecommerce/features/cart/presentation/bloc/cart_event.dart';
+
 
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_event.dart';
@@ -20,9 +18,10 @@ import '../../features/Store/domain/entities/shop_entity.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
+  final String uid;
 
   final double height;
-  const ProductCard({super.key, required this.product,required this.height});
+  const ProductCard({super.key, required this.product,required this.height,required this.uid});
 
   
 

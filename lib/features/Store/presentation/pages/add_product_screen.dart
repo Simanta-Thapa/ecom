@@ -1,15 +1,12 @@
 import 'dart:convert';
 
-
 import 'package:ecommerce/core/const/const.dart';
 import 'package:ecommerce/core/widgets/app_bar_1.dart';
 import 'package:ecommerce/core/widgets/custom_button_2.dart';
 import 'package:ecommerce/core/widgets/custom_text_form_field.dart';
 import 'package:ecommerce/features/Store/domain/entities/shop_entity.dart';
-
-
-
-
+import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
+import 'package:ecommerce/features/auth/bloc/auth_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +22,6 @@ import '../widget/add_product_button.dart';
 import '../widget/add_product_textfield.dart';
 
 class AddProductScreen extends StatefulWidget {
-
   const AddProductScreen({super.key});
 
   @override
@@ -33,40 +29,16 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreen extends State<AddProductScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController productController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-
-  TextEditingController productDes = TextEditingController();
   TextEditingController productCategory = TextEditingController();
-
+  TextEditingController productController = TextEditingController();
+  TextEditingController productDes = TextEditingController();
   late final AddProductSubmission submitHelper;
 
-
-
-
-
-
-
-  void _handleAddProduct(String image) {
-    final product = ProductEntity(
-      id: '',
-      name: productController.text.trim(),
-      description: productDes.text.trim(),
-      price: double.tryParse(priceController.text.trim()) ?? 0.0,
-      image: image,
-      uploadTime: DateTime.now(),
-    );
-
-    submitHelper.submit(product: product);
-  }
-
-
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-
     super.dispose();
     productController.clear();
     priceController.clear();
@@ -79,46 +51,39 @@ class _AddProductScreen extends State<AddProductScreen> {
     super.initState();
   }
 
+  void _handleAddProduct(String image) {
+    // 1️⃣ Get current logged-in user UID
+    final authState = context.read<AuthBloc>().state;
+    String? uid;
 
-  @override
-  Widget build(BuildContext context) {
-    final screen = MediaQuery.of(context).size;
-    final screenHeight = screen.height;
-  
+    if (authState is AuthAuthenticated) {
+      uid = authState.user.uid;
+    }
 
-    return Scaffold(
-      appBar: AppBar1(title: "Add Product"),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: BlocConsumer<ShopBloc, ShopState>(
-          listener: (context, state) => shopBlocListener(context,state),
-          builder: (context, state) {
-            final image = state.image;
+    // 2️⃣ If user not logged in, show error and stop
+    if (uid == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("You must be logged in to add a product")),
+      );
+      return;
+    }
 
-            return SafeArea(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      _reviewImage(image,screenHeight),
-                      _productFormWidget(),
-                      lHeight,
-                      _imagePickerButton(),
-                      AddProductButton(
-                        onPressed:()=> _handleAddProduct(image),
-                        buttonText_2: "Add Product",
-
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
+    final product = ProductEntity(
+      uid: uid,
+      id: '',
+      name: productController.text.trim(),
+      description: productDes.text.trim(),
+      price: double.tryParse(priceController.text.trim()) ?? 0.0,
+      image: image,
+      uploadTime: DateTime.now(),
     );
+
+    submitHelper.submit(product: product);
+
+    productController.clear();
+    productDes.clear();
+    priceController.clear();
+    productCategory.clear();
   }
 
   Widget _productFormWidget() {
@@ -141,10 +106,10 @@ class _AddProductScreen extends State<AddProductScreen> {
           ),
           height,
           CustomTextFormField(
-            hintText:"Product Category",
-            icon:Icon(Icons.category),
-            controller:productCategory
-            ),
+            hintText: "Product Category",
+            icon: Icon(Icons.category),
+            controller: productCategory,
+          ),
           height,
           CustomTextFormField(
             hintText: "Enter Your Price ",
@@ -179,9 +144,7 @@ class _AddProductScreen extends State<AddProductScreen> {
     );
   }
 
-
-  Widget _reviewImage(String image,double screenHeight){
-
+  Widget _reviewImage(String image, double screenHeight) {
     if (image.isEmpty) {
       return Container(
         height: screenHeight * 0.20,
@@ -194,13 +157,48 @@ class _AddProductScreen extends State<AddProductScreen> {
     return SizedBox(
       height: screenHeight * 0.20,
       width: double.infinity,
-      child:Image.memory(base64Decode(image),
-      fit: BoxFit.cover,
-      ),
+      child: Image.memory(base64Decode(image), fit: BoxFit.cover),
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    final screen = MediaQuery.of(context).size;
+    final screenHeight = screen.height;
 
+    return Scaffold(
+      appBar: AppBar1(title: "Add Product"),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: BlocConsumer<ShopBloc, ShopState>(
+          listener: (context, state) => shopBlocListener(context, state),
+          builder: (context, state) {
+            final image = state.image;
+
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      _reviewImage(image, screenHeight),
+                      _productFormWidget(),
+                      lHeight,
+                      _imagePickerButton(),
+                      AddProductButton(
+                        onPressed: () => _handleAddProduct(image),
+                        buttonText_2: "Add Product",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
 
 
 }

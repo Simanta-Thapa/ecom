@@ -11,11 +11,12 @@ class ProductModel extends ProductEntity with EquatableMixin{
     required super.id,
     required super.price,
     required super.description,
-    required super.uploadTime
+    required super.uploadTime, required super.uid
   });
 
   factory ProductModel.fromMap(Map<String,dynamic> map){
     return ProductModel(
+      uid: map['uid'],
         image:map['image'],
         name: map['name'],
         id: map['id'],
@@ -28,6 +29,7 @@ class ProductModel extends ProductEntity with EquatableMixin{
 
   Map<String,dynamic> toMap(){
     return {
+      'uid':uid,
       'image':image,
       'name':name,
       'id':id,
@@ -39,6 +41,7 @@ class ProductModel extends ProductEntity with EquatableMixin{
 
   ProductEntity toEntity(){
     return ProductEntity(
+       uid: uid,
         image: image,
         name: name,
         id: id,
@@ -51,6 +54,7 @@ class ProductModel extends ProductEntity with EquatableMixin{
 
   factory ProductModel.fromEntity(ProductEntity entity) {
     return ProductModel(
+      uid: entity.uid,
       image: entity.image,
       name: entity.name,
       id: entity.id,
@@ -61,7 +65,7 @@ class ProductModel extends ProductEntity with EquatableMixin{
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [image,name,id,description,price,uploadTime];
+
+  List<Object?> get props => [uid,image,name,id,description,price,uploadTime];
 
 }

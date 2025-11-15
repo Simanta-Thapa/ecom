@@ -1,13 +1,10 @@
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/failure.dart';
 import 'package:ecommerce/features/Store/data/datasource/shop_local_data_source.dart';
-
 import 'package:ecommerce/features/Store/domain/entities/shop_entity.dart';
 import 'package:ecommerce/features/Store/domain/respositories/shop_repository.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../datasource/shop_remote_data_source.dart';
 import '../model/product_model.dart';
 
@@ -45,6 +42,7 @@ class ShopRepositoryImpl implements ShopRepository{
   Future<Either<Failure, void>> addProduct(ProductEntity product) async  {
     try{
       final model = ProductModel(
+        uid: product.uid,
         id: product.id,
         name: product.name,
         description: product.description,

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
+import 'package:ecommerce/features/auth/bloc/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +27,14 @@ class _StoreScreenState extends State<StoreScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authState = context.watch<AuthBloc>().state;
+
+    String? uid;
+    if(authState is AuthAuthenticated){
+      uid = authState.user.uid;
+    }
+
 
     final screen = MediaQuery.of(context).size;
 
@@ -59,6 +69,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     return ProductCard(
                       height: cardHeight, // dynamically sized
                       product: data,
+                      uid: uid!,
 
                     );
                   },

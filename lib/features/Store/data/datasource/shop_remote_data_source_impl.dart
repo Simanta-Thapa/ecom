@@ -22,6 +22,7 @@ class ShopRemoteDataSourceImpl implements ShopRemoteDataSource{
   Future<void> addProduct(ProductModel model) async {
     final docRef = _firestore.collection("Products").doc();
     final _newModel = ProductModel(
+      uid: model.uid,
       id:docRef.id,
       name:model.name,
       description:model.description,

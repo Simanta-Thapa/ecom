@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
+  final String uid;
   final String image;
   final String name;
   final String id;
@@ -9,6 +10,7 @@ class ProductEntity extends Equatable {
   final DateTime uploadTime; // Changed from Timestamp
 
   const ProductEntity({
+    required this.uid,
     required this.image,
     required this.name,
     required this.id,
@@ -18,5 +20,5 @@ class ProductEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [image, name, id, price, description, uploadTime];
+  List<Object?> get props => [uid,image, name, id, price, description, uploadTime];
 }

@@ -5,8 +5,7 @@ import 'package:ecommerce/features/checkout/presentation/bloc/checkout_event.dar
 import 'package:ecommerce/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import '../../domain/entities/cart.dart';
+
 import '../bloc/cart_bloc.dart';
 import '../bloc/cart_event.dart';
 import '../bloc/cart_state.dart';

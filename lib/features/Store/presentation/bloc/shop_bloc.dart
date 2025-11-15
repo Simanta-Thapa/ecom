@@ -57,7 +57,7 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
     final result = await addProductUseCase.call(event.productEntity);
     result.fold(
       (failure) => emit(state.copyWith(errorMsg: failure.msg, isFail: true,isAdding: false)),
-      (result) => emit(state.copyWith(isAdded: true, isFail: false,isAdding: false)),
+      (result) => emit(state.copyWith(isAdded: true, isFail: false,isAdding: false,image: null)),
     );
   }
 }

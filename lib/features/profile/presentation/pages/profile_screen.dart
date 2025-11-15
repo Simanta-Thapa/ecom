@@ -1,5 +1,5 @@
 import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
-import 'package:ecommerce/features/auth/bloc/auth_event.dart';
+
 import 'package:ecommerce/features/auth/bloc/auth_state.dart';
 
 import 'package:ecommerce/features/profile/presentation/bloc/profile_bloc.dart';
@@ -54,9 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen>
     ];
     final screenHeight = MediaQuery.of(context).size.height; // get double
     final topHeight = screenHeight * (1 / 7);
-    final bottomHeight = screenHeight * (6 / 7);
+    
 
-    final headerTop = topHeight + bottomHeight * -0.2;
+   
 
     const Color primaryDark = Color(0xFF141F32);
     const Color secondaryDark = Color(0xFF1F2A40);

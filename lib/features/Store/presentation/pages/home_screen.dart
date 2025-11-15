@@ -1,12 +1,7 @@
-import 'dart:developer';
-import 'package:ecommerce/core/widgets/product_card.dart';
+
 import 'package:ecommerce/features/Store/presentation/bloc/shop_bloc.dart';
 import 'package:ecommerce/features/Store/presentation/bloc/shop_event.dart';
-import 'package:ecommerce/features/Store/presentation/bloc/shop_state.dart';
-import 'package:ecommerce/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:ecommerce/features/cart/presentation/bloc/cart_event.dart';
-import 'package:ecommerce/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:ecommerce/features/profile/presentation/bloc/profile_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,10 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screen = MediaQuery.of(context).size;
+  
 
-    final containerHeight = screen.height * 0.50; // container = 50% of screen
-    final cardHeight = containerHeight * 0.80; // card = 80% of container
+   
+  
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
