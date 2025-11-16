@@ -1,6 +1,5 @@
 import 'package:ecommerce/features/cart/domain/entities/cart.dart';
 
-import '../entities/checkout_cart_entity.dart';
 import '../respositories/checkout_repository.dart';
 
 class StartCheckoutUseCase{

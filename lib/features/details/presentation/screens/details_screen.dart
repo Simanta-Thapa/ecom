@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 import 'package:ecommerce/features/cart/presentation/bloc/cart_state.dart';
-import 'package:ecommerce/features/cart/presentation/pages/cart_screen.dart';
 import 'package:ecommerce/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

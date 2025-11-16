@@ -1,6 +1,5 @@
 import 'package:ecommerce/features/cart/domain/entities/cart.dart';
 import 'package:ecommerce/features/checkout/domain/entities/address_entity.dart';
-import 'package:ecommerce/features/checkout/domain/entities/checkout_cart_entity.dart';
 import 'package:ecommerce/features/checkout/domain/entities/delivery_option_entity.dart';
 import 'package:equatable/equatable.dart';
 

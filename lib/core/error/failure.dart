@@ -14,7 +14,7 @@ class NetworkFailure extends Failure{
 }
 
 class AuthFailure extends Failure {
- const AuthFailure([String message = 'Authentication error']) : super(message);
+ const AuthFailure([super.message = 'Authentication error']);
 }
 
 class DatabaseFailure extends Failure{

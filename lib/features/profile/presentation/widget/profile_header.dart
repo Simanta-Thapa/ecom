@@ -3,7 +3,6 @@ import 'package:ecommerce/features/profile/presentation/bloc/profile_state.dart'
 import 'package:ecommerce/features/profile/presentation/widget/profile_header_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});

@@ -1,5 +1,4 @@
 import 'package:ecommerce/features/cart/domain/entities/cart.dart';
-import 'package:ecommerce/features/cart/presentation/widget/cart_item.dart';
 import 'package:ecommerce/features/checkout/domain/entities/address_entity.dart';
 
 import 'package:ecommerce/features/checkout/domain/entities/delivery_option_entity.dart';

@@ -6,8 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 import '../../../Store/domain/entities/shop_entity.dart';
-import '../../../cart/domain/entities/cart.dart';
-import '../../../cart/presentation/bloc/cart_event.dart';
 
 class DetailsButton extends StatelessWidget {
   final String uid;

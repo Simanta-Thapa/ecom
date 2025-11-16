@@ -8,4 +8,5 @@ abstract class ShopRepository{
   Future<Either<Failure,List<ProductEntity>>> getProducts();
   Future<Either<Failure,String>> selectedImage(ImageSource source);
   Future<Either<Failure,void>> addProduct(ProductEntity product);
+  Future<Either<Failure,List<ProductEntity>>> getProductsByIds(List<String> ids);
 }

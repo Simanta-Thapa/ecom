@@ -1,5 +1,4 @@
 import 'package:ecommerce/features/details/domain/entites/details_entity.dart';
-import 'package:flutter/cupertino.dart';
 
 class DetailState{
   final bool isLoading;

@@ -10,7 +10,6 @@ import 'package:ecommerce/features/Store/domain/usecases/get_products_use_case.d
 import 'package:ecommerce/features/Store/domain/usecases/selected_image_use_case.dart';
 import 'package:ecommerce/features/Store/presentation/bloc/shop_bloc.dart';
 import 'package:ecommerce/features/auth/bloc/auth_bloc.dart';
-import 'package:ecommerce/features/auth/bloc/auth_event.dart';
 import 'package:ecommerce/features/auth/data/data/auth_remote_data_source_impl.dart';
 import 'package:ecommerce/features/auth/data/data/authremotedatasource.dart';
 import 'package:ecommerce/features/auth/data/repository/auth_repository.dart';

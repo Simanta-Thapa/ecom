@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class _DetailsProductImage extends StatelessWidget {
   final GlobalKey imageKey;
   final String image;
-  const _DetailsProductImage({super.key,required this.imageKey,required this.image});
+  const _DetailsProductImage({required this.imageKey,required this.image});
 
   @override
   Widget build(BuildContext context) {

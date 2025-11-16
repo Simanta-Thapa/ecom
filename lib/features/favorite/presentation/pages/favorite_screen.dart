@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/widgets/favorite.dart';
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:ecommerce/features/favorite/presentation/bloc/favorite_state.dart';
 import 'package:flutter/material.dart';

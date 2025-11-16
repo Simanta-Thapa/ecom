@@ -48,4 +48,11 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource{
 
 
   }
+  
+  @override
+  Future<List<String>> getFavoriteIds(String userId) async {
+     final snapshot = await firestore.collection("User").doc(userId).collection("Favorite").get();
+    final favoriteIds = snapshot.docs.map((doc)=>doc.id).toList();
+    return favoriteIds;
+  }
 }

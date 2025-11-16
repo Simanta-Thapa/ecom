@@ -3,7 +3,6 @@ import 'package:ecommerce/features/checkout/domain/entities/address_entity.dart'
 import 'package:ecommerce/features/checkout/domain/entities/checkout_entity.dart';
 import 'package:ecommerce/features/checkout/domain/entities/delivery_option_entity.dart';
 
-import '../entities/checkout_cart_entity.dart';
 
 abstract class CheckoutRepository{
   Future<void> addNewAddress(String userUid,Address address);

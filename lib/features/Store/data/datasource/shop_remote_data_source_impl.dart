@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -21,7 +22,7 @@ class ShopRemoteDataSourceImpl implements ShopRemoteDataSource{
   @override
   Future<void> addProduct(ProductModel model) async {
     final docRef = _firestore.collection("Products").doc();
-    final _newModel = ProductModel(
+    final newModel = ProductModel(
       uid: model.uid,
       id:docRef.id,
       name:model.name,
@@ -30,7 +31,22 @@ class ShopRemoteDataSourceImpl implements ShopRemoteDataSource{
       image:model.image,
       uploadTime:model.uploadTime, // or Timestamp.fromDate(product.uploadTime) if needed
     );
-      await docRef.set(_newModel.toMap());
+      await docRef.set(newModel.toMap());
+
+  }
+  
+  @override
+  Future<List<ProductModel>> fetchProductsByIds(List<String> ids) async {
+    final List<ProductModel> result = [];
+    for(var i = 0; i < ids.length ; i +=10){
+      final favoriteIds = ids.sublist(i,math.min(i+10,ids.length));
+
+      final snapshot = await  _firestore.collection("Products").where(FieldPath.documentId,whereIn: favoriteIds).get();
+      result.addAll(snapshot.docs.map((doc)=>ProductModel.fromMap(doc.data())));
+    }
+
+
+    return result;
 
   }
 

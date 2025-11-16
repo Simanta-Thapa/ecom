@@ -57,5 +57,16 @@ class ShopRepositoryImpl implements ShopRepository{
     }
 
   }
+  
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getProductsByIds(List<String> ids) async {
+   try{
+    final favoriteProducts = await remoteDataSource.fetchProductsByIds(ids);
+    return Right(favoriteProducts);
+   }catch(e){
+     return Left(UnknowFailure(e.toString()));
+   }
+
+  }
 
 }
