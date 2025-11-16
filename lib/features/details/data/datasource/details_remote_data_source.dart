@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 
 import '../model/detail_model.dart';
 

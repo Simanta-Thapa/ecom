@@ -17,7 +17,7 @@ import 'package:ecommerce/features/details/bloc/detail_event.dart';
 import 'package:ecommerce/features/details/bloc/detail_state.dart';
 import 'package:ecommerce/features/details/presentation/widgets/details_tab_bar.dart';
 import 'package:ecommerce/features/cart/presentation/widget/animated_add_to_cart.dart';
-import 'detail_product_image.dart';
+
 
 class DetailsScreen extends StatefulWidget {
   final String productId;
@@ -29,10 +29,12 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  int _quantity = 1;
+  
   String? _uid;
   final GlobalKey _imageKey = GlobalKey();
   final ValueNotifier<String> _selectedTab = ValueNotifier("description");
+
+
 
   @override
   void initState() {
@@ -49,10 +51,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
   }
 
-  void _incrementQuantity() => setState(() => _quantity++);
-  void _decrementQuantity() {
-    if (_quantity > 1) setState(() => _quantity--);
-  }
+
 
   // 🪄 The animation function
   void _runAddToCartAnimation(Uint8List productImage, CartAnimationType type) {
@@ -99,6 +98,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
     final media = MediaQuery.of(context);
     final screenHeight = media.size.height;
 
+      final authState = context.read<AuthBloc>().state;
+    String? uid;
+
+    if (authState is AuthAuthenticated) {
+      uid = authState.user.uid;
+    }
+
+
+
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<DetailBloc, DetailState>(
@@ -112,6 +120,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
               if (productData == null) {
                 return const Center(child: Text("Problem loading data"));
               }
+
+              final bool isOwn = productData.uid == uid;
 
               return Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -152,6 +162,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     const SizedBox(height: 12),
 
                     // 🛒 Add to Cart button
+                    isOwn ?  const SizedBox.shrink(): 
                     BlocBuilder<CartBloc,CartState>(
                         builder:(context,state){
 
@@ -176,7 +187,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 sizenum: 1,
                                 color: 'Black',
                                 price: productData.price,
-                                qty: _quantity,
+                                qty:1,
                               );
 
                               // Step 1: show adding animation
@@ -202,7 +213,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             child: Text(isInCart ? "inCart" : "Add to Cart"  ),
                           );
                     }
-                    ),
+                    )
+                  
 
                   ],
                 ),

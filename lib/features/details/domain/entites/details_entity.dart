@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class DetailEntity extends Equatable{
   final String id;
+  final String uid;
   final String name;
   final String image;
   final String description;
@@ -11,6 +12,7 @@ class DetailEntity extends Equatable{
   const DetailEntity({
     required this.id,
     required this.name,
+    required this.uid,
     required this.image,
     required this.description,
     required this.price,
@@ -18,7 +20,7 @@ class DetailEntity extends Equatable{
 });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [id,name,image,description,price,uploadTime];
+
+  List<Object?> get props => [uid,id,name,image,description,price,uploadTime];
 
 }
